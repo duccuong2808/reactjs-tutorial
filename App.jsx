@@ -1,36 +1,50 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 class App extends React.Component {
-
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.state = {
-      data: ''
-    };
+      data:
+        [
+          {
+            name: 'First...',
+            id: 1,
+          },
 
-    this.updateState = this.updateState.bind(this);
-    this.clearInput = this.clearInput.bind(this);
-  };
+          {
+            name: 'Second...',
+            id: 2
+          },
 
-  updateState(e) {
-    this.setState({data: e.target.value});
-  }
-
-  clearInput() {
-    this.setState({data: ''});
-    ReactDOM.findDOMNode(this.refs.myInput).focus();
+          {
+            name: 'Third...',
+            id: 3
+          }
+        ]
+    }
   }
 
   render() {
     return (
       <div>
-        <input value = {this.state.data} onChange = {this.updateState}
-               ref = "myInput">
-        </input>
-        <button onClick = {this.clearInput}>CLEAR</button>
-        <h4>{this.state.data}</h4>
+        <div>
+          {
+            this.state.data.map((data, i) =>
+              <Content key = {i} componentData = {data}/>)
+          }
+        </div>
+      </div>
+    );
+  }
+}
+
+class Content extends React.Component {
+  render() {
+    return (
+      <div>
+        <div>{this.props.componentData.id}</div>
+        <div>{this.props.componentData.name}</div>
       </div>
     );
   }
