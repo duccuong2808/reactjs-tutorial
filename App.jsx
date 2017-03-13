@@ -1,53 +1,43 @@
 import React from 'react';
+import {Link} from 'react-router';
 
 class App extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      data:
-        [
-          {
-            name: 'First...',
-            id: 1,
-          },
-
-          {
-            name: 'Second...',
-            id: 2
-          },
-
-          {
-            name: 'Third...',
-            id: 3
-          }
-        ]
-    }
-  }
-
   render() {
-    return (
+    return(
       <div>
-        <div>
-          {
-            this.state.data.map((data, i) =>
-              <Content key = {i} componentData = {data}/>)
-          }
-        </div>
+        <ul>
+          <li><Link to="home">Home</Link></li>
+          <li><Link to="about">About</Link></li>
+          <li><Link to="contact">Contact</Link></li>
+        </ul>
+
+        {this.props.children}
       </div>
-    );
+    )
   }
 }
-
-class Content extends React.Component {
-  render() {
-    return (
-      <div>
-        <div>{this.props.componentData.id}</div>
-        <div>{this.props.componentData.name}</div>
-      </div>
-    );
-  }
-}
-
 export default App;
+
+export class Home extends React.Component {
+  render() {
+    return (
+      <h1>Home...</h1>
+    )
+  }
+}
+
+export class About extends React.Component {
+  render() {
+    return (
+      <h1>About...</h1>
+    )
+  }
+}
+
+export class Contact extends React.Component {
+  render()  {
+    return (
+      <h1>Contact...</h1>
+    )
+  }
+}
