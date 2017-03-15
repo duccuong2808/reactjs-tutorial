@@ -1,28 +1,20 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { addTodo } from './actions/actions'
+import React from 'react';
+var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 
-import AddTodo from './components/AddTodo.jsx'
-import TodoList from './components/TodoList.jsx'
+class App extends React.Component {
 
-class App extends Component {
   render() {
-    const { dispatch, visibleTodos } = this.props;
     return (
       <div>
+        <ReactCSSTransitionGroup transitionName = "example"
+                                 transitionAppear = {true} transitionAppearTimeout = {50}
+                                 transitionEnter = {false} transitionLeave = {false}>
 
-        <AddTodo onAddClick = { text => dispatch(addTodo(text)) }/>
-        <TodoList todos = { visibleTodos }/>
-
+          <h1>My Element...</h1>
+        </ReactCSSTransitionGroup>
       </div>
-    )
+    );
   }
 }
 
-function select(state) {
-  return {
-    visibleTodos: state.todos
-  }
-}
-
-export default connect(select)(App)
+export default App;
