@@ -1,45 +1,31 @@
 import React from 'react';
-let ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {items: ['hello', 'world', 'click', 'me']};
-    this.handleAdd = this.handleAdd.bind(this);
-  }
+let newData = {
+  data: 'Data from HOC...',
+};
 
-  handleAdd() {
-    const newItems = this.state.items.concat([
-      prompt('Enter some text')
-    ]);
-    this.setState({items: newItems});
-  }
+let MyHOC = ComposedComponent => class extends React.Component {
 
-  handleRemove(i) {
-    let newItems = this.state.items.slice();
-    newItems.splice(i, 1);
-    this.setState({items: newItems});
+  componentDidMount() {
+    this.setState({
+      data: newData.data
+    });
   }
 
   render() {
-    const items = this.state.items.map((item, i) => (
-      <div key={item} onClick={() => this.handleRemove(i)}>
-        {item}
-      </div>
-    ));
+    return <ComposedComponent {...this.props} {...this.state} />;
+  }
+};
 
+
+class MyComponent extends React.Component {
+  render() {
     return (
       <div>
-        <button onClick={this.handleAdd}>Add Item</button>
-        <ReactCSSTransitionGroup
-          transitionName="example"
-          transitionEnterTimeout={1}
-          transitionLeaveTimeout={10000}>
-          {items}
-        </ReactCSSTransitionGroup>
+        <h1>{this.props.data}</h1>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default MyHOC(MyComponent);
